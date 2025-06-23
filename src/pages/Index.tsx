@@ -4,15 +4,14 @@ import { DisasterReportForm } from '@/components/DisasterReportForm';
 import { VolunteerHelp } from '@/components/VolunteerHelp';
 import { DisasterMap } from '@/components/DisasterMap';
 import { RescueRequestsList } from '@/components/RescueRequestsList';
-import { LineInterface } from '@/components/LineInterface';
 import { ReportNumberSearch } from '@/components/ReportNumberSearch';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { AlertTriangle, Users, MapPin, List, MessageCircle, Hash } from 'lucide-react';
+import { AlertTriangle, Users, MapPin, List, Hash } from 'lucide-react';
 
 const Index = () => {
-  const [activeTab, setActiveTab] = useState("line");
+  const [activeTab, setActiveTab] = useState("volunteer");
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
@@ -20,7 +19,7 @@ const Index = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-4">
-            <MessageCircle className="w-12 h-12 text-green-600 mr-3" />
+            <AlertTriangle className="w-12 h-12 text-green-600 mr-3" />
             <h1 className="text-4xl font-bold text-gray-900">災難救援系統</h1>
           </div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -39,6 +38,15 @@ const Index = () => {
             </CardContent>
           </Card>
           
+          <Card className="border-green-200 hover:border-green-400 transition-colors cursor-pointer"
+                onClick={() => setActiveTab("volunteer")}>
+            <CardContent className="p-6 text-center">
+              <Users className="w-16 h-16 text-green-600 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">我要幫忙</h3>
+              <p className="text-gray-600">志願救援・編號查詢・Line介面</p>
+            </CardContent>
+          </Card>
+          
           <Card className="border-blue-200 hover:border-blue-400 transition-colors cursor-pointer"
                 onClick={() => setActiveTab("search")}>
             <CardContent className="p-6 text-center">
@@ -47,23 +55,14 @@ const Index = () => {
               <p className="text-gray-600">精準救災・優先調度</p>
             </CardContent>
           </Card>
-          
-          <Card className="border-green-200 hover:border-green-400 transition-colors cursor-pointer"
-                onClick={() => setActiveTab("line")}>
-            <CardContent className="p-6 text-center">
-              <MessageCircle className="w-16 h-16 text-green-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Line介面</h3>
-              <p className="text-gray-600">聊天風格的救援請求</p>
-            </CardContent>
-          </Card>
         </div>
 
         {/* Main Content Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-6 mb-6">
-            <TabsTrigger value="line" className="flex items-center gap-2">
-              <MessageCircle className="w-4 h-4" />
-              Line
+          <TabsList className="grid w-full grid-cols-5 mb-6">
+            <TabsTrigger value="volunteer" className="flex items-center gap-2">
+              <Users className="w-4 h-4" />
+              幫忙
             </TabsTrigger>
             <TabsTrigger value="search" className="flex items-center gap-2">
               <Hash className="w-4 h-4" />
@@ -72,10 +71,6 @@ const Index = () => {
             <TabsTrigger value="report" className="flex items-center gap-2">
               <AlertTriangle className="w-4 h-4" />
               通報
-            </TabsTrigger>
-            <TabsTrigger value="volunteer" className="flex items-center gap-2">
-              <Users className="w-4 h-4" />
-              救援
             </TabsTrigger>
             <TabsTrigger value="map" className="flex items-center gap-2">
               <MapPin className="w-4 h-4" />
@@ -87,8 +82,8 @@ const Index = () => {
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="line">
-            <LineInterface />
+          <TabsContent value="volunteer">
+            <VolunteerHelp />
           </TabsContent>
 
           <TabsContent value="search">
@@ -97,10 +92,6 @@ const Index = () => {
 
           <TabsContent value="report">
             <DisasterReportForm />
-          </TabsContent>
-
-          <TabsContent value="volunteer">
-            <VolunteerHelp />
           </TabsContent>
 
           <TabsContent value="map">
