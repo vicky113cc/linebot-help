@@ -77,16 +77,18 @@ export const IntegratedVolunteerHelp = () => {
     }
   };
 
+
   const handleLineConnect = () => {
-    // 連結到Line應用程式
-    const lineUrl = "https://line.me/R/ti/p/@your-line-bot"; // 請替換為您的Line Bot ID
+    // 連結到你的 LINE Bot
+    const lineUrl = "https://line.me/R/ti/p/@075kecaf"; 
     window.open(lineUrl, '_blank');
-    
+
     toast({
-      title: "連結Line應用程式",
-      description: "正在開啟Line應用程式連結",
+        title: "連結 Line 應用程式",
+        description: "正在開啟 Line 應用程式連結",
     });
-  };
+};
+
 
   const ChatListItem = ({ report }: { report: DisasterReport }) => (
     <Sheet>
