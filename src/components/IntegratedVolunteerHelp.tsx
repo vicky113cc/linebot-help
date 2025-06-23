@@ -80,7 +80,7 @@ export const IntegratedVolunteerHelp = () => {
 
   const handleLineConnect = () => {
     // 連結到你的 LINE Bot
-    const lineUrl = "https://line.me/R/ti/p/@075kecaf"; 
+    const lineUrl = "https://line.me/R/ti/p/@075kecaf";
     window.open(lineUrl, '_blank');
 
     toast({
