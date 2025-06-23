@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { AlertTriangle, MapPin, Clock } from 'lucide-react';
-import { useDisasterStore } from '@/store/disasterStore';
+import { useDisasterStore, DisasterReport } from '@/store/disasterStore';
 
 export const DisasterReportForm = () => {
   const { toast } = useToast();
@@ -17,7 +17,7 @@ export const DisasterReportForm = () => {
     name: '',
     phone: '',
     address: '',
-    urgency: '',
+    urgency: '' as DisasterReport['urgency'] | '',
     type: '',
     description: '',
     peopleCount: ''
@@ -54,9 +54,15 @@ export const DisasterReportForm = () => {
       return;
     }
 
-    const newReport = {
+    const newReport: DisasterReport = {
       id: Date.now().toString(),
-      ...formData,
+      name: formData.name,
+      phone: formData.phone,
+      address: formData.address,
+      urgency: formData.urgency as DisasterReport['urgency'],
+      type: formData.type,
+      description: formData.description,
+      peopleCount: formData.peopleCount,
       timestamp: new Date(),
       status: 'pending',
       estimatedWaitTime: calculateWaitTime(formData.urgency)
