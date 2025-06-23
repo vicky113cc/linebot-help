@@ -5,10 +5,11 @@ import { VolunteerHelp } from '@/components/VolunteerHelp';
 import { DisasterMap } from '@/components/DisasterMap';
 import { RescueRequestsList } from '@/components/RescueRequestsList';
 import { LineInterface } from '@/components/LineInterface';
+import { ReportNumberSearch } from '@/components/ReportNumberSearch';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { AlertTriangle, Users, MapPin, List, MessageCircle } from 'lucide-react';
+import { AlertTriangle, Users, MapPin, List, MessageCircle, Hash } from 'lucide-react';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("line");
@@ -23,18 +24,27 @@ const Index = () => {
             <h1 className="text-4xl font-bold text-gray-900">災難救援系統</h1>
           </div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            鄰里互助・即時救援・Line風格介面
+            鄰里互助・即時救援・精準調度・編號查詢
           </p>
         </div>
 
         {/* Quick Action Buttons */}
-        <div className="grid md:grid-cols-2 gap-4 mb-8">
+        <div className="grid md:grid-cols-3 gap-4 mb-8">
           <Card className="border-red-200 hover:border-red-400 transition-colors cursor-pointer" 
                 onClick={() => setActiveTab("report")}>
             <CardContent className="p-6 text-center">
               <AlertTriangle className="w-16 h-16 text-red-600 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-gray-900 mb-2">我要通報</h3>
               <p className="text-gray-600">需要幫助或發現災情</p>
+            </CardContent>
+          </Card>
+          
+          <Card className="border-blue-200 hover:border-blue-400 transition-colors cursor-pointer"
+                onClick={() => setActiveTab("search")}>
+            <CardContent className="p-6 text-center">
+              <Hash className="w-16 h-16 text-blue-600 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">編號查詢</h3>
+              <p className="text-gray-600">精準救災・優先調度</p>
             </CardContent>
           </Card>
           
@@ -50,10 +60,14 @@ const Index = () => {
 
         {/* Main Content Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-5 mb-6">
+          <TabsList className="grid w-full grid-cols-6 mb-6">
             <TabsTrigger value="line" className="flex items-center gap-2">
               <MessageCircle className="w-4 h-4" />
               Line
+            </TabsTrigger>
+            <TabsTrigger value="search" className="flex items-center gap-2">
+              <Hash className="w-4 h-4" />
+              查詢
             </TabsTrigger>
             <TabsTrigger value="report" className="flex items-center gap-2">
               <AlertTriangle className="w-4 h-4" />
@@ -75,6 +89,10 @@ const Index = () => {
 
           <TabsContent value="line">
             <LineInterface />
+          </TabsContent>
+
+          <TabsContent value="search">
+            <ReportNumberSearch />
           </TabsContent>
 
           <TabsContent value="report">
