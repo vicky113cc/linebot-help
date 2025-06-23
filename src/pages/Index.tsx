@@ -4,25 +4,26 @@ import { DisasterReportForm } from '@/components/DisasterReportForm';
 import { VolunteerHelp } from '@/components/VolunteerHelp';
 import { DisasterMap } from '@/components/DisasterMap';
 import { RescueRequestsList } from '@/components/RescueRequestsList';
+import { LineInterface } from '@/components/LineInterface';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { AlertTriangle, Users, MapPin, List } from 'lucide-react';
+import { AlertTriangle, Users, MapPin, List, MessageCircle } from 'lucide-react';
 
 const Index = () => {
-  const [activeTab, setActiveTab] = useState("report");
+  const [activeTab, setActiveTab] = useState("line");
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
       <div className="container mx-auto px-4 py-6">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-4">
-            <AlertTriangle className="w-12 h-12 text-red-600 mr-3" />
+            <MessageCircle className="w-12 h-12 text-green-600 mr-3" />
             <h1 className="text-4xl font-bold text-gray-900">災難救援系統</h1>
           </div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            鄰里互助・即時救援・優先級管理
+            鄰里互助・即時救援・Line風格介面
           </p>
         </div>
 
@@ -37,19 +38,23 @@ const Index = () => {
             </CardContent>
           </Card>
           
-          <Card className="border-orange-200 hover:border-orange-400 transition-colors cursor-pointer"
-                onClick={() => setActiveTab("volunteer")}>
+          <Card className="border-green-200 hover:border-green-400 transition-colors cursor-pointer"
+                onClick={() => setActiveTab("line")}>
             <CardContent className="p-6 text-center">
-              <Users className="w-16 h-16 text-orange-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">我要幫忙</h3>
-              <p className="text-gray-600">提供協助給需要的鄰居</p>
+              <MessageCircle className="w-16 h-16 text-green-600 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Line介面</h3>
+              <p className="text-gray-600">聊天風格的救援請求</p>
             </CardContent>
           </Card>
         </div>
 
         {/* Main Content Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-6">
+          <TabsList className="grid w-full grid-cols-5 mb-6">
+            <TabsTrigger value="line" className="flex items-center gap-2">
+              <MessageCircle className="w-4 h-4" />
+              Line
+            </TabsTrigger>
             <TabsTrigger value="report" className="flex items-center gap-2">
               <AlertTriangle className="w-4 h-4" />
               通報
@@ -67,6 +72,10 @@ const Index = () => {
               清單
             </TabsTrigger>
           </TabsList>
+
+          <TabsContent value="line">
+            <LineInterface />
+          </TabsContent>
 
           <TabsContent value="report">
             <DisasterReportForm />

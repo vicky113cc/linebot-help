@@ -141,7 +141,7 @@ export const DisasterReportForm = () => {
 
           <div>
             <Label htmlFor="urgency">緊急程度 *</Label>
-            <Select value={formData.urgency} onValueChange={(value) => setFormData({...formData, urgency: value})}>
+            <Select value={formData.urgency} onValueChange={(value: DisasterReport['urgency']) => setFormData({...formData, urgency: value})}>
               <SelectTrigger>
                 <SelectValue placeholder="選擇緊急程度" />
               </SelectTrigger>
@@ -156,11 +156,11 @@ export const DisasterReportForm = () => {
                 ))}
               </SelectContent>
             </Select>
-            {selectedUrgency && (
+            {selectedUrgency && formData.urgency && (
               <div className={`mt-2 p-3 rounded-lg ${selectedUrgency.bgColor} ${selectedUrgency.color} flex items-center gap-2`}>
                 <Clock className="w-4 h-4" />
                 <span className="text-sm font-medium">
-                  預估等待時間：{formData.urgency && formData.urgency !== '' ? calculateWaitTime(formData.urgency) : '待評估'}
+                  預估等待時間：{calculateWaitTime(formData.urgency)}
                 </span>
               </div>
             )}
