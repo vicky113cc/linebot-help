@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -65,7 +64,7 @@ export const DisasterReportForm = () => {
       peopleCount: formData.peopleCount,
       timestamp: new Date(),
       status: 'pending',
-      estimatedWaitTime: calculateWaitTime(formData.urgency)
+      estimatedWaitTime: calculateWaitTime(formData.urgency as DisasterReport['urgency'])
     };
 
     addDisasterReport(newReport);
@@ -87,7 +86,7 @@ export const DisasterReportForm = () => {
     });
   };
 
-  const calculateWaitTime = (urgency: string) => {
+  const calculateWaitTime = (urgency: DisasterReport['urgency']) => {
     switch (urgency) {
       case 'critical': return '10-15分鐘';
       case 'high': return '30-45分鐘';
@@ -161,7 +160,7 @@ export const DisasterReportForm = () => {
               <div className={`mt-2 p-3 rounded-lg ${selectedUrgency.bgColor} ${selectedUrgency.color} flex items-center gap-2`}>
                 <Clock className="w-4 h-4" />
                 <span className="text-sm font-medium">
-                  預估等待時間：{calculateWaitTime(formData.urgency)}
+                  預估等待時間：{formData.urgency ? calculateWaitTime(formData.urgency as DisasterReport['urgency']) : '待評估'}
                 </span>
               </div>
             )}
