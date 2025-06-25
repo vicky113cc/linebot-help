@@ -54,6 +54,18 @@ export const DisasterMap = () => {
     }
   };
 
+  // 台灣主要城市位置 (相對位置)
+  const taiwanCities = [
+    { name: '台北', x: 52, y: 25, isCapital: true },
+    { name: '新北', x: 50, y: 28, isCapital: false },
+    { name: '桃園', x: 48, y: 32, isCapital: false },
+    { name: '台中', x: 45, y: 45, isCapital: false },
+    { name: '台南', x: 42, y: 70, isCapital: false },
+    { name: '高雄', x: 45, y: 80, isCapital: false },
+    { name: '花蓮', x: 65, y: 50, isCapital: false },
+    { name: '台東', x: 62, y: 75, isCapital: false },
+  ];
+
   return (
     <div className="max-w-6xl mx-auto space-y-6 relative">
       <Card>
@@ -87,15 +99,78 @@ export const DisasterMap = () => {
           </div>
         </CardHeader>
         <CardContent>
-          {/* 精確天氣資訊地圖 */}
-          <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-lg h-[500px] relative mb-6 overflow-hidden border-2 border-blue-200">
-            {/* 台灣輪廓背景 */}
-            <div className="absolute inset-4 bg-gradient-to-se from-green-100 to-blue-100 rounded-lg opacity-60">
-              <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-                <div className="text-center">
-                  <MapPin className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                  <p className="text-lg font-medium">台灣災情監控中心</p>
-                  <p className="text-sm">即時災情・天氣預警・精準救援</p>
+          {/* 台灣地圖 */}
+          <div className="bg-gradient-to-br from-blue-100 to-green-100 rounded-lg h-[500px] relative mb-6 overflow-hidden border-2 border-blue-200">
+            {/* 台灣島嶼輪廓 */}
+            <div className="absolute inset-0">
+              {/* 台灣本島 */}
+              <div 
+                className="absolute bg-green-200 opacity-80 border-2 border-green-300 shadow-lg"
+                style={{
+                  left: '35%',
+                  top: '20%',
+                  width: '30%',
+                  height: '65%',
+                  clipPath: 'polygon(20% 0%, 80% 5%, 95% 25%, 85% 45%, 90% 65%, 75% 85%, 60% 95%, 40% 90%, 25% 80%, 15% 60%, 10% 40%, 5% 20%)',
+                }}
+              >
+                {/* 台灣標示 */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <div className="text-green-800 font-bold text-lg text-center">
+                    台灣
+                  </div>
+                </div>
+              </div>
+
+              {/* 澎湖群島 */}
+              <div 
+                className="absolute w-3 h-3 bg-green-200 rounded-full border border-green-300"
+                style={{ left: '25%', top: '55%' }}
+                title="澎湖"
+              />
+
+              {/* 金門 */}
+              <div 
+                className="absolute w-2 h-2 bg-green-200 rounded-full border border-green-300"
+                style={{ left: '15%', top: '60%' }}
+                title="金門"
+              />
+
+              {/* 主要城市標示 */}
+              {taiwanCities.map((city) => (
+                <div
+                  key={city.name}
+                  className="absolute transform -translate-x-1/2 -translate-y-1/2"
+                  style={{
+                    left: `${city.x}%`,
+                    top: `${city.y}%`,
+                  }}
+                >
+                  <div className={`w-3 h-3 rounded-full border-2 border-white shadow-lg ${
+                    city.isCapital ? 'bg-red-500' : 'bg-blue-500'
+                  }`} />
+                  <div className="absolute top-4 left-1/2 transform -translate-x-1/2 text-xs font-medium text-gray-700 bg-white/80 px-1 rounded">
+                    {city.name}
+                  </div>
+                </div>
+              ))}
+
+              {/* 周邊海域標示 */}
+              <div className="absolute top-2 left-2 text-blue-600 text-sm font-medium">
+                台灣海峽
+              </div>
+              <div className="absolute top-2 right-12 text-blue-600 text-sm font-medium">
+                太平洋
+              </div>
+              <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-blue-600 text-sm font-medium">
+                巴士海峽
+              </div>
+
+              {/* 方位指標 */}
+              <div className="absolute top-4 right-4 bg-white/90 rounded-lg p-2 shadow-lg">
+                <div className="text-center text-xs font-bold">N</div>
+                <div className="w-6 h-6 border-2 border-gray-400 rounded-full relative">
+                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-b-4 border-transparent border-b-red-500"></div>
                 </div>
               </div>
             </div>
@@ -106,8 +181,8 @@ export const DisasterMap = () => {
                 key={report.id}
                 className={`absolute w-5 h-5 rounded-full ${getStatusColor(report.status)} border-2 border-white shadow-lg z-30 cursor-pointer hover:scale-110 transition-transform`}
                 style={{
-                  left: `${15 + (index % 4) * 20}%`,
-                  top: `${25 + Math.floor(index / 4) * 25}%`,
+                  left: `${35 + (index % 4) * 8}%`,
+                  top: `${30 + Math.floor(index / 4) * 15}%`,
                 }}
                 title={`${report.type} - ${report.address} (${getStatusText(report.status)})`}
               >
@@ -144,6 +219,24 @@ export const DisasterMap = () => {
                 </div>
               </div>
             </div>
+
+            <div className="space-y-2">
+              <h4 className="font-semibold text-sm text-gray-700">地圖圖例</h4>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 rounded-full bg-red-500"></div>
+                  <span className="text-sm">直轄市</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 rounded-full bg-blue-500"></div>
+                  <span className="text-sm">縣市</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 bg-green-200 border border-green-300"></div>
+                  <span className="text-sm">台灣本島</span>
+                </div>
+              </div>
+            </div>
             
             {showWeather && (
               <>
@@ -156,24 +249,6 @@ export const DisasterMap = () => {
                         <span className="text-sm">{typhoon.name} ({typhoon.level}級)</span>
                       </div>
                     ))}
-                  </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-sm text-gray-700">天氣警戒</h4>
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 rounded-full bg-red-500"></div>
-                      <span className="text-sm">嚴重</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 rounded-full bg-orange-500"></div>
-                      <span className="text-sm">中度</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 rounded-full bg-yellow-500"></div>
-                      <span className="text-sm">輕度</span>
-                    </div>
                   </div>
                 </div>
                 
