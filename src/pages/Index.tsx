@@ -4,7 +4,8 @@ import { DisasterReportForm } from '@/components/DisasterReportForm';
 import { VolunteerHelp } from '@/components/VolunteerHelp';
 import { DisasterMap } from '@/components/DisasterMap';
 import { RescueRequestsList } from '@/components/RescueRequestsList';
-import { ReportNumberSearch } from '@/components/ReportNumberSearch';
+// import { ReportNumberSearch } from '@/components/ReportNumberSearch';
+import { Chatbot } from '@/components/Chatbot';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -87,7 +88,7 @@ const Index = () => {
           </TabsContent>
 
           <TabsContent value="search">
-            <ReportNumberSearch />
+            <Chatbot  />
           </TabsContent>
 
           <TabsContent value="report">
