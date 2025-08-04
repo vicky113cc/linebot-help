@@ -4,14 +4,14 @@ import { DisasterReportForm } from '@/components/DisasterReportForm';
 import { VolunteerHelp } from '@/components/VolunteerHelp';
 import { DisasterMap } from '@/components/DisasterMap';
 import { RescueRequestsList } from '@/components/RescueRequestsList';
-import { ReportNumberSearch } from '@/components/ReportNumberSearch';
+import { OnlineChatroom } from '@/components/OnlineChatroom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { AlertTriangle, Users, MapPin, List, Hash } from 'lucide-react';
+import { AlertTriangle, Users, MapPin, List, MessageCircle } from 'lucide-react';
 
 const Index = () => {
-  const [activeTab, setActiveTab] = useState("volunteer");
+  const [activeTab, setActiveTab] = useState("chatroom");
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
@@ -23,7 +23,7 @@ const Index = () => {
             <h1 className="text-4xl font-bold text-gray-900">災難救援系統</h1>
           </div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            鄰里互助・即時救援・精準調度・編號查詢
+            環境研究課程・AI智慧助教・即時問答・學習支援
           </p>
         </div>
 
@@ -47,12 +47,12 @@ const Index = () => {
             </CardContent>
           </Card>
           
-          <Card className="border-blue-200 hover:border-blue-400 transition-colors cursor-pointer"
-                onClick={() => setActiveTab("search")}>
+          <Card className="border-green-200 hover:border-green-400 transition-colors cursor-pointer"
+                onClick={() => setActiveTab("chatroom")}>
             <CardContent className="p-6 text-center">
-              <Hash className="w-16 h-16 text-blue-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">編號查詢</h3>
-              <p className="text-gray-600">精準救災・優先調度</p>
+              <MessageCircle className="w-16 h-16 text-green-600 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">課程聊天室</h3>
+              <p className="text-gray-600">AI助教・即時問答・課程諮詢</p>
             </CardContent>
           </Card>
         </div>
@@ -64,9 +64,9 @@ const Index = () => {
               <Users className="w-4 h-4" />
               幫忙
             </TabsTrigger>
-            <TabsTrigger value="search" className="flex items-center gap-2">
-              <Hash className="w-4 h-4" />
-              查詢
+            <TabsTrigger value="chatroom" className="flex items-center gap-2">
+              <MessageCircle className="w-4 h-4" />
+              聊天室
             </TabsTrigger>
             <TabsTrigger value="report" className="flex items-center gap-2">
               <AlertTriangle className="w-4 h-4" />
@@ -86,8 +86,8 @@ const Index = () => {
             <VolunteerHelp />
           </TabsContent>
 
-          <TabsContent value="search">
-            <ReportNumberSearch />
+          <TabsContent value="chatroom">
+            <OnlineChatroom />
           </TabsContent>
 
           <TabsContent value="report">
